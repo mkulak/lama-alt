@@ -26,12 +26,14 @@ class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(prop
         styledDiv {
             css {
                 +WelcomeStyles.textContainer
+                +"bg-purple-600"
             }
             +"Hello, ${state.name}"
         }
         styledInput {
             css {
                 +WelcomeStyles.textInput
+//                +"bg-purple-600"
             }
             attrs {
                 type = InputType.text

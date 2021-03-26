@@ -1,5 +1,8 @@
+import com.github.gradle.node.npm.task.NpxTask
+
 plugins {
     kotlin("js") version "1.4.21"
+    id("com.github.node-gradle.node") version "3.0.0-rc5"
 }
 
 val kotlinVersion = "1.4.21"
@@ -50,4 +53,28 @@ kotlin {
             }
         }
     }
+}
+
+val tailwindCss = tasks.register<NpxTask>("tailwindcss") {
+
+    // Output CSS location
+    val generatedFile = "build/distributions/tailwind-generated.css"
+
+    // Location of the tailwind config file
+    val tailwindConfig = "css/tailwind.css"
+
+    command.set("tailwind")
+    args.set(listOf("build", tailwindConfig, "-o", generatedFile))
+
+    dependsOn(tasks.npmInstall)
+
+    // The location of the source files which Tailwind scans when running ```purgecss```
+    inputs.dir("src/main")
+
+    inputs.file(tailwindConfig)
+    outputs.file(generatedFile)
+}
+
+(tasks.getByName("processResources") as ProcessResources).apply {
+    dependsOn(tailwindCss)
 }

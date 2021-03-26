@@ -1,1 +1,7 @@
-{}
+{
+  "name": "lama-alt",
+  "devDependencies": {
+    "chokidar": "^3.5.1",
+    "tailwindcss": "^2.0.2"
+  }
+}
